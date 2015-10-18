@@ -6,6 +6,11 @@ Takes arguments passed in nearly any format to a bash script and allows easy acc
 
 ### Get An Arguments Value
 
+There is a helper function named `argValue()` which takes the name of 
+an argument as its only parameter and returns the value given to the argument.
+
+If the argument doesn't have a value or hasn't been passed nothing is returned.
+
 ```bash
 
 	# -a "some text"
