@@ -20,6 +20,9 @@ fi
 # --debug 3
 DEBUG_LEVEL="$(argValue "debug")" # 3
 
+# --max-size=1024
+MAX_SIZE="$(argValue "max-size")" # 1024
+
 # -R 0
 [ "$(argValue "R")" == "0" ] && echo "Recursive depth 0"
 
@@ -58,6 +61,11 @@ if argExists 'long-argument-name'; then
 	# Do something awesome
 fi
 
+# --protocol=HTTP
+if argExists 'protocol'; then
+	# Do something awesome
+fi
+
 # -O 43
 argExists 'r' && echo "Found the -O argument"
 ```
@@ -90,6 +98,18 @@ newlines"
 "
 --1337
 --365 "days"
+```
+
+### Long Form With Value
+
+```bash
+--lang="en"
+--crawl=false
+--match-pattern=".+"
+--newline="
+"
+--UpperCase=sensitive
+--45="25+20"
 ```
 
 ### Chained Short Form Arguments
