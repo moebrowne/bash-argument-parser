@@ -103,8 +103,3 @@ argExists() {
 		return 0
 	fi
 }
-
-if argExists 'u'; then
-	echo "you passed the -u flag"
-fi
-
