@@ -92,6 +92,18 @@ newlines"
 --365 "days"
 ```
 
+### Long Form With Value
+
+```bash
+--lang="en"
+--crawl=false
+--match-pattern=".+"
+--newline="
+"
+--UpperCase=sensitive
+--45="25+20"
+```
+
 ### Chained Short Form Arguments
 
 ```bash
