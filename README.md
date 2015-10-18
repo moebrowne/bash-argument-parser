@@ -79,3 +79,8 @@ The order the arguments are passed on the command line makes a difference
 
 * Calling `my-script.sh -f first -f last` will cause `${args["f"]}` to have the value `last`
 * Calling `my-script.sh -g 345 -g` will mean cause `${args["g"]}` to be blank
+
+## Debug Mode
+
+There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable at the top of the script to `true`.
+This will cause the script to dump out information about which flags it finds and of what kind etc
