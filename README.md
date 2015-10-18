@@ -34,3 +34,12 @@ newlines"
 	-aih	# Equivalent to -a -i -h
 	-dav 4	# Equivalent to -d -a -v 4
 ```
+
+## Argument Order
+
+The order the arguments are passed on the command line makes a difference
+
+### Examples
+
+* Calling `my-script.sh -f first -f last` will cause `${args["f"]}` to have the value `last`
+* Calling `my-script.sh -g 345 -g` will mean cause `${args["g"]}` to be blank
