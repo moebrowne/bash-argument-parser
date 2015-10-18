@@ -7,6 +7,8 @@ regexArgLong='^--([a-zA-Z\-]{2,})$'
 
 argChunks=()
 
+ARG_DEBUG=false
+
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
 
@@ -16,6 +18,9 @@ for argChunk in "$@"; do
 
 		# Get the chunk or arguments
 		chainedChunk="${BASH_REMATCH[1]}";
+
+		[ $ARG_DEBUG == true ] && echo "Expanding chained argument chunk: $chainedChunk"
+
 		i=0
 		# Expand out the chunk into individual arguments
 		while (( i++ < ${#chainedChunk} )); do
@@ -32,6 +37,8 @@ for argChunk in "$@"; do
 	# Add the argument to the argument array
 	argChunks+=("$argChunk")
 done
+
+[ $ARG_DEBUG == true ] && echo "Expanded argument list: ${argChunks[@]}"
 
 # Initialise some variables
 declare -A args
@@ -51,7 +58,7 @@ for argChunk in "${argChunks[@]}"; do
 		# Add the argument to the arguments array
 		args["${BASH_REMATCH[1]}"]=''
 
-		#echo "Argument (short): ${BASH_REMATCH[1]}"
+		[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
 
 		continue;
 	fi
@@ -66,7 +73,7 @@ for argChunk in "${argChunks[@]}"; do
 		# Add the argument to the arguments array
 		args["${BASH_REMATCH[1]}"]=''
 
-		#echo "Argument (long): ${BASH_REMATCH[1]}"
+		[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
 
 		continue;
 	fi
@@ -77,14 +84,14 @@ for argChunk in "${argChunks[@]}"; do
 		# Add the arguments value to the arguments array
 		args["$lastArgument"]="$argChunk"
 
-		#echo "Argument Value: $argChunk"
+		[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
 
 		lastWasArgument=0
 	fi
 done
 
-echo "---------"
-for k in "${!args[@]}"
+[ $ARG_DEBUG == true ] && echo "Argument array:"
+[ $ARG_DEBUG == true ] && for k in "${!args[@]}"
 do
     echo "ARG: $k = ${args[$k]}"
 done
