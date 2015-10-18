@@ -1,12 +1,13 @@
 #!/bin/bash
 
+# Define the regex for matching the arguments
 regexArgShort='^-([a-zA-Z])$'
 regexArgShortChained='^-([a-zA-Z]{2,})$'
 regexArgLong='^--([a-zA-Z\-]{2,})$'
 
 argChunks=()
 
-# Expand chained short form arguments
+# Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
 
 	# See if this argument is a chained short form argument
@@ -22,7 +23,7 @@ for argChunk in "$@"; do
 			# Get just the argument on its own
 			argumentIsolated="${chainedChunk:$i-1:1}"
 
-			# Add the isolated argument to the argument array
+			# Add the isolated argument to the argument chunk array
 			argChunks+=("-$argumentIsolated")
 		done
 		continue;
@@ -32,38 +33,52 @@ for argChunk in "$@"; do
 	argChunks+=("$argChunk")
 done
 
-echo "ARGUMENTS EXPANDED: ${argChunks[@]}"
-
+# Initialise some variables
 declare -A args
 lastWasArgument=0
 lastArgument=""
 
+# Loop over all the argument chunks and determine if the argument type and value
 for argChunk in "${argChunks[@]}"; do
 
 	# Check if this chunk is a short form argument
 	[[ $argChunk =~ $regexArgShort ]]
 	if [ "${BASH_REMATCH[1]}" != "" ]; then
-		echo "Argument (short): ${BASH_REMATCH[1]}"
+		argument="${BASH_REMATCH[1]}"
 		lastWasArgument=1
-		lastArgument="${BASH_REMATCH[1]}"
+		lastArgument="$argument"
+
+		# Add the argument to the arguments array
 		args["${BASH_REMATCH[1]}"]=''
+
+		#echo "Argument (short): ${BASH_REMATCH[1]}"
+
 		continue;
 	fi
 
 	# Check if this chunk is a long form argument
 	[[ $argChunk =~ $regexArgLong ]]
 	if [ "${BASH_REMATCH[1]}" != "" ]; then
-		echo "Argument (long): ${BASH_REMATCH[1]}"
+		argument="${BASH_REMATCH[1]}"
 		lastWasArgument=1
-		lastArgument="${BASH_REMATCH[1]}"
+		lastArgument="$argument"
+
+		# Add the argument to the arguments array
 		args["${BASH_REMATCH[1]}"]=''
+
+		#echo "Argument (long): ${BASH_REMATCH[1]}"
+
 		continue;
 	fi
 
-	# If the last chunk was an argument and this wasn't assume its a value
+	# If the last chunk was an argument and this wasn't assume its an argument value
 	if [ $lastWasArgument == 1 ]; then
+
+		# Add the arguments value to the arguments array
 		args["$lastArgument"]="$argChunk"
-		echo "Argument Value: $argChunk"
+
+		#echo "Argument Value: $argChunk"
+
 		lastWasArgument=0
 	fi
 done
