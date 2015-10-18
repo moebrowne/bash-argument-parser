@@ -96,5 +96,15 @@ do
     echo "ARG: $k = ${args[$k]}"
 done
 
-[ ${args["u"]+abc} ] && echo "you passed the -u flag"
+argExists() {
+	if [ ${args["$1"]+abc} ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+if argExists 'u'; then
+	echo "you passed the -u flag"
+fi
 
