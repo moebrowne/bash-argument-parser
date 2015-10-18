@@ -26,17 +26,26 @@ Takes arguments passed in nearly any format to a bash script and allows easy acc
 
 ### Check If An Argument Has Been Passed
 
-Check for the `-v` flag
+There is a helper function named `argExists()` which takes the name of 
+an argument as its only parameter and returns a boolean.
 
 ```bash
-
+	
+	# -v
 	if argExists 'v'; then
-    	echo "The -v flag has been passed"
+    	echo "The -v argument has been passed"
     fi
     
-    # Or
+    # -rMd
+	argExists 'r' && echo "The -r argument was passed"
     
-    argExists 'v' && echo "Verbosity Enabled"
+    # --long-argument-name
+	if argExists 'long-argument-name'; then
+    	# Do something awesome
+    fi
+    
+    # -O 43
+    argExists 'r' && echo "Found the -O argument"
 
 ```
 
