@@ -97,10 +97,10 @@ do
 done
 
 argExists() {
-	if [ ${args["$1"]+abc} ]; then
-		return 0
-	else
+	if [ -z ${args["$1"]+abc} ]; then
 		return 1
+	else
+		return 0
 	fi
 }
 
