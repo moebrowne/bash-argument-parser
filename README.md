@@ -66,20 +66,6 @@ an argument as its only parameter and returns a boolean.
 
 ```
 
-Check for the `--test` flag
-
-```bash
-
-	if argExists 'test'; then
-    	echo "The --test flag has been passed"
-    fi
-    
-    # Or
-    
-    argExists 'test' && echo "Testing enabled"
-
-```
-
 ## Supported Argument Formats
 
 ### Short Form
