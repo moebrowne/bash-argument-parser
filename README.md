@@ -2,6 +2,42 @@
 
 Takes arguments passed in nearly any format to a bash script and allows easy access to them and their values
 
+## Use
+
+### Get An Arguments Value
+
+Get the value of the `--debug 3` flag
+
+```bash
+	DEBUG="${args['debug']}" # 3
+```
+
+### Check If An Argument Has Been Passed
+
+Check for the `-v` flag
+
+```bash
+	if argExists 'v'; then
+    	echo "The -v flag has been passed"
+    fi
+    
+    # Or
+    
+    argExists 'v' && echo "Verbosity Enabled"
+```
+
+Check for the `--test` flag
+
+```bash
+	if argExists 'test'; then
+    	echo "The --test flag has been passed"
+    fi
+    
+    # Or
+    
+    argExists 'test' && echo "Testing enabled"
+```
+
 ## Supported Argument Formats
 
 ### Short Form
