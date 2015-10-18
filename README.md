@@ -20,6 +20,9 @@ fi
 # --debug 3
 DEBUG_LEVEL="$(argValue "debug")" # 3
 
+# --max-size=1024
+MAX_SIZE="$(argValue "max-size")" # 1024
+
 # -R 0
 [ "$(argValue "R")" == "0" ] && echo "Recursive depth 0"
 
@@ -55,6 +58,11 @@ argExists 'r' && echo "The -r argument was passed"
 
 # --long-argument-name
 if argExists 'long-argument-name'; then
+	# Do something awesome
+fi
+
+# --protocol=HTTP
+if argExists 'protocol'; then
 	# Do something awesome
 fi
 
