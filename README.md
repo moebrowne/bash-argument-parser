@@ -13,7 +13,7 @@ If the argument doesn't have a value or hasn't been passed nothing is returned.
 
 ```bash
 
-	# -a "some text"
+	# -a 'some text'
 	if [ "$(argValue "a")" == 'some text' ]; then
 		# Do something awesome
 	fi
@@ -26,6 +26,10 @@ If the argument doesn't have a value or hasn't been passed nothing is returned.
 	
 	# -aXb 'cookie'
 	BISCUIT="$(argValue "b")" # 'cookie'
+	
+	# -g 'hello' -G 'world'
+	ALPHA="$(argValue "g")" # 'hello'
+	BRAVO="$(argValue "G")" # 'world'
 	
 ```
 
