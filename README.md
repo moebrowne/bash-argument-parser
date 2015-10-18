@@ -31,6 +31,14 @@ If the argument doesn't have a value or hasn't been passed nothing is returned.
 	ALPHA="$(argValue "g")" # 'hello'
 	BRAVO="$(argValue "G")" # 'world'
 	
+	# -S d
+	case $(argValue 'S') in
+		a)	echo "something" ;;
+		b)	echo "something" ;;
+		c)	echo "something" ;;
+		d)	echo "darkside"  ;;
+	esac
+	
 ```
 
 ### Check If An Argument Has Been Passed
