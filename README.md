@@ -69,11 +69,13 @@ argExists 'r' && echo "Found the -O argument"
 ```bash
 -a
 -X
+-2
 -b somevalue
 -c 38
 -d "some value with spaces"
 -e "some value with
 newlines"
+-7 "ate nine"
 ```
 
 ### Long Form
@@ -86,6 +88,8 @@ newlines"
 --long-parameter
 --newline "
 "
+--1337
+--365 "days"
 ```
 
 ### Chained Short Form Arguments
@@ -93,6 +97,7 @@ newlines"
 ```bash
 -aih	# Equivalent to -a -i -h
 -dav 4	# Equivalent to -d -a -v 4
+-H3cx	# Equivalent to -H -3 -c -x
 ```
 
 ## Argument Order
