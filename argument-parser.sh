@@ -4,6 +4,7 @@
 regexArgShort='^-([a-zA-Z0-9])$'
 regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
 regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
+regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 argChunks=()
 
@@ -59,6 +60,20 @@ for argChunk in "${argChunks[@]}"; do
 		args["${BASH_REMATCH[1]}"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
+
+		continue;
+	fi
+
+	# Check if this chunk is a long form with value argument
+	[[ $argChunk =~ $regexArgLongWithValue ]]
+	if [ "${BASH_REMATCH[1]}" != "" ]; then
+		argument="${BASH_REMATCH[1]}"
+		lastArgument="$argument"
+
+		# Add the argument to the arguments array
+		args["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+
+		[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
 
 		continue;
 	fi
