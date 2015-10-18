@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Define the regex for matching the arguments
-regexArgShort='^-([a-zA-Z])$'
-regexArgShortChained='^-([a-zA-Z]{2,})$'
-regexArgLong='^--([a-zA-Z\-]{2,})$'
+regexArgShort='^-([a-zA-Z0-9])$'
+regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
+regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 
 argChunks=()
 
