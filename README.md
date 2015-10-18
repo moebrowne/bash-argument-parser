@@ -6,10 +6,22 @@ Takes arguments passed in nearly any format to a bash script and allows easy acc
 
 ### Get An Arguments Value
 
-Get the value of the `--debug 3` flag
-
 ```bash
-	DEBUG="${args['debug']}" # 3
+
+	# -a "some text"
+	if [ "$(argValue "a")" == 'some text' ]; then
+		# Do something awesome
+	fi
+	
+	# --debug 3
+	DEBUG_LEVEL="$(argValue "debug")" # 3
+	
+	# -R 0
+	[ "$(argValue "R")" == "0" ] && echo "Recursive depth 0"
+	
+	# -aXb 'cookie'
+	BISCUIT="$(argValue "b")" # 'cookie'
+	
 ```
 
 ### Check If An Argument Has Been Passed
@@ -17,6 +29,7 @@ Get the value of the `--debug 3` flag
 Check for the `-v` flag
 
 ```bash
+
 	if argExists 'v'; then
     	echo "The -v flag has been passed"
     fi
@@ -24,11 +37,13 @@ Check for the `-v` flag
     # Or
     
     argExists 'v' && echo "Verbosity Enabled"
+
 ```
 
 Check for the `--test` flag
 
 ```bash
+
 	if argExists 'test'; then
     	echo "The --test flag has been passed"
     fi
@@ -36,6 +51,7 @@ Check for the `--test` flag
     # Or
     
     argExists 'test' && echo "Testing enabled"
+
 ```
 
 ## Supported Argument Formats
