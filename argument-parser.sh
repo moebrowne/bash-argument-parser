@@ -103,3 +103,9 @@ argExists() {
 		return 0
 	fi
 }
+
+argValue() {
+	if argExists "$1"; then
+		echo "${args["$1"]}"
+	fi
+}
