@@ -67,7 +67,7 @@ if argExists 'protocol'; then
 fi
 
 # -O 43
-argExists 'r' && echo "Found the -O argument"
+argExists 'O' && echo "Found the -O argument"
 ```
 
 ## Supported Argument Formats
