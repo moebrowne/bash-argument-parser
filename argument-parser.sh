@@ -124,3 +124,6 @@ argValue() {
 		echo "${argv["$1"]}"
 	fi
 }
+
+# Add the standard argc variable containing the number of arguments
+argc=${#argv[@]}
