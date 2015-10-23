@@ -52,7 +52,7 @@ argExpected['v|verbose']="verbose - verbosity level"
 argGetName() {
 	for k in "${!argExpected[@]}"
 	do
-		regexArg="($1)|"
+		regexArg="($1)\|"
 		[[ "$k|" =~ $regexArg ]]
 		if [ "${BASH_REMATCH[1]}" != "" ]; then
 
