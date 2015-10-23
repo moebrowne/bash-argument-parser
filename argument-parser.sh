@@ -56,7 +56,7 @@ argGetName() {
 		[[ "$k|" =~ $regexArg ]]
 		if [ "${BASH_REMATCH[1]}" != "" ]; then
 
-			regexArgName="($1) - "
+			regexArgName="(.+) - "
 			[[ "${argExpected[$k]}" =~ $regexArgName ]]
 
 			echo "${BASH_REMATCH[1]}"
