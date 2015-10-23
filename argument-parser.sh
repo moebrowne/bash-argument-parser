@@ -8,7 +8,7 @@ regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 argChunks=()
 
-ARG_DEBUG=false
+ARG_DEBUG=true
 
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
@@ -46,6 +46,25 @@ declare -A argv
 lastWasArgument=0
 lastArgument=""
 
+declare -A argExpected
+argExpected['v|verbose']="verbose - verbosity level"
+
+argGetName() {
+	for k in "${!argExpected[@]}"
+	do
+		regexArg="($1)|"
+		[[ "$k|" =~ $regexArg ]]
+		if [ "${BASH_REMATCH[1]}" != "" ]; then
+
+			regexArgName="($1) - "
+			[[ "${argExpected[$k]}" =~ $regexArgName ]]
+
+			echo "${BASH_REMATCH[1]}"
+			break
+		fi
+	done
+}
+
 # Loop over all the argument chunks and determine if the argument type and value
 for argChunk in "${argChunks[@]}"; do
 
@@ -55,6 +74,11 @@ for argChunk in "${argChunks[@]}"; do
 		argument="${BASH_REMATCH[1]}"
 		lastWasArgument=1
 		lastArgument="$argument"
+
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		echo "ARGNAME $argName"
 
 		# Add the argument to the arguments array
 		argv["${BASH_REMATCH[1]}"]=''
@@ -69,6 +93,11 @@ for argChunk in "${argChunks[@]}"; do
 	if [ "${BASH_REMATCH[1]}" != "" ]; then
 		argument="${BASH_REMATCH[1]}"
 		lastArgument="$argument"
+
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		echo "ARGNAME $argName"
 
 		# Add the argument to the arguments array
 		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
@@ -85,6 +114,11 @@ for argChunk in "${argChunks[@]}"; do
 		lastWasArgument=1
 		lastArgument="$argument"
 
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		echo "ARGNAME $argName"
+
 		# Add the argument to the arguments array
 		argv["${BASH_REMATCH[1]}"]=''
 
@@ -96,8 +130,13 @@ for argChunk in "${argChunks[@]}"; do
 	# If the last chunk was an argument and this wasn't assume its an argument value
 	if [ $lastWasArgument == 1 ]; then
 
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		echo "ARGNAME $argName"
+
 		# Add the arguments value to the arguments array
-		argv["$lastArgument"]="$argChunk"
+		argv["$argName"]="$argChunk"
 
 		[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
 
