@@ -65,6 +65,10 @@ argGetName() {
 	done
 }
 
+argUnexpected() {
+	echo "UNEXPECTED ARGUMENT $1"
+}
+
 # Loop over all the argument chunks and determine if the argument type and value
 for argChunk in "${argChunks[@]}"; do
 
@@ -77,6 +81,12 @@ for argChunk in "${argChunks[@]}"; do
 
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
+
+		# Check we could get an argument
+		if [ "$argName" == "" ]; then
+			argUnexpected "$argChunk"
+			exit 1
+		fi
 
 		# Add the argument to the arguments array
 		argv["$argName"]=''
@@ -95,6 +105,12 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
+		# Check we could get an argument
+		if [ "$argName" == "" ]; then
+			argUnexpected "$argChunk"
+			exit 1
+		fi
+
 		# Add the argument to the arguments array
 		argv["$argName"]="${BASH_REMATCH[2]}"
 
@@ -112,6 +128,12 @@ for argChunk in "${argChunks[@]}"; do
 
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
+
+		# Check we could get an argument
+		if [ "$argName" == "" ]; then
+			argUnexpected "$argChunk"
+			exit 1
+		fi
 
 		# Add the argument to the arguments array
 		argv["$argName"]=''
