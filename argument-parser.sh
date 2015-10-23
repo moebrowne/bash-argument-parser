@@ -8,7 +8,8 @@ regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 argChunks=()
 
-ARG_DEBUG=false
+ARG_DEBUG=true
+ARG_MUST_BE_DEFINED=true
 
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
@@ -46,6 +47,29 @@ declare -A argv
 lastWasArgument=0
 lastArgument=""
 
+declare -A argExpected
+argExpected['v|verbose']="verbose - verbosity level"
+
+argGetName() {
+	for k in "${!argExpected[@]}"
+	do
+		regexArg="\|($1)\|"
+		[[ "|$k|" =~ $regexArg ]]
+		if [ "${BASH_REMATCH[1]}" != "" ]; then
+
+			regexArgName="(.+) - "
+			[[ "${argExpected[$k]}" =~ $regexArgName ]]
+
+			echo "${BASH_REMATCH[1]}"
+			break
+		fi
+	done
+}
+
+argUnexpected() {
+	echo "UNEXPECTED ARGUMENT $1"
+}
+
 # Loop over all the argument chunks and determine if the argument type and value
 for argChunk in "${argChunks[@]}"; do
 
@@ -56,8 +80,17 @@ for argChunk in "${argChunks[@]}"; do
 		lastWasArgument=1
 		lastArgument="$argument"
 
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		# Check we could get an argument
+		if [ "$argName" == "" ]; then
+			argUnexpected "$argChunk"
+			exit 1
+		fi
+
 		# Add the argument to the arguments array
-		argv["${BASH_REMATCH[1]}"]=''
+		argv["$argName"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
 
@@ -70,8 +103,17 @@ for argChunk in "${argChunks[@]}"; do
 		argument="${BASH_REMATCH[1]}"
 		lastArgument="$argument"
 
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		# Check we could get an argument
+		if [ "$argName" == "" ]; then
+			argUnexpected "$argChunk"
+			exit 1
+		fi
+
 		# Add the argument to the arguments array
-		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+		argv["$argName"]="${BASH_REMATCH[2]}"
 
 		[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
 
@@ -85,8 +127,17 @@ for argChunk in "${argChunks[@]}"; do
 		lastWasArgument=1
 		lastArgument="$argument"
 
+		# Get the name of the argument
+		argName="$(argGetName "$argument")"
+
+		# Check we could get an argument
+		if [ "$argName" == "" ]; then
+			argUnexpected "$argChunk"
+			exit 1
+		fi
+
 		# Add the argument to the arguments array
-		argv["${BASH_REMATCH[1]}"]=''
+		argv["$argName"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
 
@@ -96,8 +147,11 @@ for argChunk in "${argChunks[@]}"; do
 	# If the last chunk was an argument and this wasn't assume its an argument value
 	if [ $lastWasArgument == 1 ]; then
 
+		# Get the name of the argument
+		argName="$(argGetName "$lastArgument")"
+
 		# Add the arguments value to the arguments array
-		argv["$lastArgument"]="$argChunk"
+		argv["$argName"]="$argChunk"
 
 		[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
 
