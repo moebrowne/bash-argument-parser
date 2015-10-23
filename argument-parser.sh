@@ -53,7 +53,7 @@ argGetName() {
 	for k in "${!argExpected[@]}"
 	do
 		regexArg="\|($1)\|"
-		[[ "$k|" =~ $regexArg ]]
+		[[ "|$k|" =~ $regexArg ]]
 		if [ "${BASH_REMATCH[1]}" != "" ]; then
 
 			regexArgName="(.+) - "
