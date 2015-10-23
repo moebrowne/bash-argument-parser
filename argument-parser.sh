@@ -78,10 +78,8 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
-		echo "ARGNAME $argName"
-
 		# Add the argument to the arguments array
-		argv["${BASH_REMATCH[1]}"]=''
+		argv["$argName"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
 
@@ -97,10 +95,8 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
-		echo "ARGNAME $argName"
-
 		# Add the argument to the arguments array
-		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+		argv["$argName"]="${BASH_REMATCH[2]}"
 
 		[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
 
@@ -117,10 +113,8 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
-		echo "ARGNAME $argName"
-
 		# Add the argument to the arguments array
-		argv["${BASH_REMATCH[1]}"]=''
+		argv["$argName"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
 
@@ -131,9 +125,7 @@ for argChunk in "${argChunks[@]}"; do
 	if [ $lastWasArgument == 1 ]; then
 
 		# Get the name of the argument
-		argName="$(argGetName "$argument")"
-
-		echo "ARGNAME $argName"
+		argName="$(argGetName "$lastArgument")"
 
 		# Add the arguments value to the arguments array
 		argv["$argName"]="$argChunk"
