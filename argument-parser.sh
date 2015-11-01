@@ -84,122 +84,124 @@ argUnexpected() {
 	echo "UNEXPECTED ARGUMENT $1"
 }
 
-# Loop over all the argument chunks and determine if the argument type and value
-for argChunk in "${argChunks[@]}"; do
+argParse() {
+	# Loop over all the argument chunks and determine if the argument type and value
+	for argChunk in "${argChunks[@]}"; do
 
-	# Check if this chunk is a short form argument
-	[[ $argChunk =~ $regexArgShort ]]
-	if [ "${BASH_REMATCH[1]}" != "" ]; then
-		argument="${BASH_REMATCH[1]}"
-		lastWasArgument=1
-		lastArgument="$argument"
+		# Check if this chunk is a short form argument
+		[[ $argChunk =~ $regexArgShort ]]
+		if [ "${BASH_REMATCH[1]}" != "" ]; then
+			argument="${BASH_REMATCH[1]}"
+			lastWasArgument=1
+			lastArgument="$argument"
 
-		# Get the name of the argument
-		argName="$(argGetName "$argument")"
+			# Get the name of the argument
+			argName="$(argGetName "$argument")"
 
-		# Check we could get an argument, return code 2 means an error was returned
-		if [ "$?" == "2" ]; then
-			echo "$argName"
-			exit 1
+			# Check we could get an argument, return code 2 means an error was returned
+			if [ "$?" == "2" ]; then
+				echo "$argName"
+				exit 1
+			fi
+
+			# Add the argument to the arguments array
+			argv["$argName"]=''
+
+			[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
+
+			continue;
 		fi
 
-		# Add the argument to the arguments array
-		argv["$argName"]=''
+		# Check if this chunk is a long form with value argument
+		[[ $argChunk =~ $regexArgLongWithValue ]]
+		if [ "${BASH_REMATCH[1]}" != "" ]; then
+			argument="${BASH_REMATCH[1]}"
+			lastArgument="$argument"
 
-		[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
+			# Get the name of the argument
+			argName="$(argGetName "$argument")"
 
-		continue;
-	fi
+			# Check we could get an argument, return code 2 means an error was returned
+			if [ "$?" == "2" ]; then
+				echo "$argName"
+				exit 1
+			fi
 
-	# Check if this chunk is a long form with value argument
-	[[ $argChunk =~ $regexArgLongWithValue ]]
-	if [ "${BASH_REMATCH[1]}" != "" ]; then
-		argument="${BASH_REMATCH[1]}"
-		lastArgument="$argument"
+			# Add the argument to the arguments array
+			argv["$argName"]="${BASH_REMATCH[2]}"
 
-		# Get the name of the argument
-		argName="$(argGetName "$argument")"
+			[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
 
-		# Check we could get an argument, return code 2 means an error was returned
-		if [ "$?" == "2" ]; then
-			echo "$argName"
-			exit 1
+			continue;
 		fi
 
-		# Add the argument to the arguments array
-		argv["$argName"]="${BASH_REMATCH[2]}"
+		# Check if this chunk is a long form argument
+		[[ $argChunk =~ $regexArgLong ]]
+		if [ "${BASH_REMATCH[1]}" != "" ]; then
+			argument="${BASH_REMATCH[1]}"
+			lastWasArgument=1
+			lastArgument="$argument"
 
-		[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
+			# Get the name of the argument
+			argName="$(argGetName "$argument")"
 
-		continue;
-	fi
+			# Check we could get an argument, return code 2 means an error was returned
+			if [ "$?" == "2" ]; then
+				echo "$argName"
+				exit 1
+			fi
 
-	# Check if this chunk is a long form argument
-	[[ $argChunk =~ $regexArgLong ]]
-	if [ "${BASH_REMATCH[1]}" != "" ]; then
-		argument="${BASH_REMATCH[1]}"
-		lastWasArgument=1
-		lastArgument="$argument"
+			# Add the argument to the arguments array
+			argv["$argName"]=''
 
-		# Get the name of the argument
-		argName="$(argGetName "$argument")"
+			[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
 
-		# Check we could get an argument, return code 2 means an error was returned
-		if [ "$?" == "2" ]; then
-			echo "$argName"
-			exit 1
+			continue;
 		fi
 
-		# Add the argument to the arguments array
-		argv["$argName"]=''
+		# If the last chunk was an argument and this wasn't assume its an argument value
+		if [ $lastWasArgument == 1 ]; then
 
-		[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
+			# Get the name of the argument
+			argName="$(argGetName "$lastArgument")"
 
-		continue;
-	fi
+			# Check we could get an argument, return code 2 means an error was returned
+			if [ "$?" == "2" ]; then
+				echo "$argName"
+				exit 1
+			fi
 
-	# If the last chunk was an argument and this wasn't assume its an argument value
-	if [ $lastWasArgument == 1 ]; then
+			# Add the arguments value to the arguments array
+			argv["$argName"]="$argChunk"
 
-		# Get the name of the argument
-		argName="$(argGetName "$lastArgument")"
+			[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
 
-		# Check we could get an argument, return code 2 means an error was returned
-		if [ "$?" == "2" ]; then
-			echo "$argName"
-			exit 1
+			lastWasArgument=0
 		fi
+	done
 
-		# Add the arguments value to the arguments array
-		argv["$argName"]="$argChunk"
+	[ $ARG_DEBUG == true ] && echo "Argument array:"
+	[ $ARG_DEBUG == true ] && for k in "${!argv[@]}"
+	do
+		echo "ARG: $k = ${argv[$k]}"
+	done
 
-		[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
+	argExists() {
+		if [ -z ${argv["$1"]+abc} ]; then
+			return 1
+		else
+			return 0
+		fi
+	}
 
-		lastWasArgument=0
-	fi
-done
+	argValue() {
+		if argExists "$1"; then
+			echo "${argv["$1"]}"
+		fi
+	}
 
-[ $ARG_DEBUG == true ] && echo "Argument array:"
-[ $ARG_DEBUG == true ] && for k in "${!argv[@]}"
-do
-    echo "ARG: $k = ${argv[$k]}"
-done
+	# Add the standard argc variable containing the number of arguments
+	argc=${#argv[@]}
 
-argExists() {
-	if [ -z ${argv["$1"]+abc} ]; then
-		return 1
-	else
-		return 0
-	fi
+	[ $ARG_DEBUG == true ] && echo "Argument Count: $argc"
 }
-
-argValue() {
-	if argExists "$1"; then
-		echo "${argv["$1"]}"
-	fi
-}
-
-# Add the standard argc variable containing the number of arguments
-argc=${#argv[@]}
-
-[ $ARG_DEBUG == true ] && echo "Argument Count: $argc"
