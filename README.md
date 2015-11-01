@@ -174,5 +174,5 @@ The order the arguments are passed on the command line makes a difference
 
 ## Debug Mode
 
-There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable at the top of the script to `true`.
+There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable to `true` right before calling `argParse`.
 This will cause the script to dump out information about which flags it finds and of what kind etc
