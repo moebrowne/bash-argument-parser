@@ -20,6 +20,29 @@ argExpected['R']="secondArgName - This is another argument that can be passed"
 argParse
 ```
 
+### Defining Expected Arguments
+
+The argument parser can take an array of arguments to expect, it has the following format:
+
+```bash
+# Define the -r argument
+argExpected['r']="argumentName - Argument description"
+
+# Define the --test argument
+argExpected['test']="argumentName - Argument description"
+
+# Define both the -u and --uniform arguments
+argExpected['u|uniform']="argumentName - Argument description"
+
+# Define both the -a and -A arguments
+argExpected['u|A']="argumentName - Argument description"
+
+# Define the -d, --deamon and -D arguments
+argExpected['d|deamon|D']="argumentName - Argument description"
+```
+
+The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argExists` functions, see below.
+
 ### Get An Arguments Value
 
 There is a helper function named `argValue()` which takes the name of 
