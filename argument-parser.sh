@@ -48,10 +48,6 @@ lastWasArgument=0
 lastArgument=""
 
 declare -A argExpected
-argExpected['v|verbose']="verbose - verbosity level"
-argExpected['t|test']="test - testing mode"
-argExpected['r|recursive']="recursive - Recurse in to directory"
-argExpected['u']="uniform - All the same"
 
 argGetName() {
 	for k in "${!argExpected[@]}"
