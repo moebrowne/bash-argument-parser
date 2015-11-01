@@ -201,3 +201,8 @@ argParse() {
 
 	[ $ARG_DEBUG == true ] && echo "Argument Count: $argc"
 }
+
+# If we are accessing this script directly run the argument parser, useful for testing
+if [ "$0" == "$BASH_SOURCE" ]; then
+	argParse
+fi
