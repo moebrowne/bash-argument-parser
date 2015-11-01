@@ -84,6 +84,20 @@ argUnexpected() {
 	echo "UNEXPECTED ARGUMENT $1"
 }
 
+argExists() {
+	if [ -z ${argv["$1"]+abc} ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+argValue() {
+	if argExists "$1"; then
+		echo "${argv["$1"]}"
+	fi
+}
+
 argParse() {
 	# Loop over all the argument chunks and determine if the argument type and value
 	for argChunk in "${argChunks[@]}"; do
@@ -185,20 +199,6 @@ argParse() {
 	do
 		echo "ARG: $k = ${argv[$k]}"
 	done
-
-	argExists() {
-		if [ -z ${argv["$1"]+abc} ]; then
-			return 1
-		else
-			return 0
-		fi
-	}
-
-	argValue() {
-		if argExists "$1"; then
-			echo "${argv["$1"]}"
-		fi
-	}
 
 	# Add the standard argc variable containing the number of arguments
 	argc=${#argv[@]}
