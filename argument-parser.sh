@@ -49,6 +49,9 @@ lastArgument=""
 
 declare -A argExpected
 argExpected['v|verbose']="verbose - verbosity level"
+argExpected['t|test']="test - testing mode"
+argExpected['r|recursive']="recursive - Recurse in to directory"
+argExpected['u']="uniform - All the same"
 
 argGetName() {
 	for k in "${!argExpected[@]}"
@@ -61,9 +64,20 @@ argGetName() {
 			[[ "${argExpected[$k]}" =~ $regexArgName ]]
 
 			echo "${BASH_REMATCH[1]}"
-			break
+			exit 0
 		fi
 	done
+
+	# Check if the argument must be defined
+	if [ $ARG_MUST_BE_DEFINED == true ]; then
+		argUnexpected "$argChunk"
+		exit 2
+	fi
+
+	# Default to using the argument as the name
+	echo "$1"
+
+	exit 1
 }
 
 argUnexpected() {
@@ -83,9 +97,9 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
-		# Check we could get an argument
-		if [ "$argName" == "" ]; then
-			argUnexpected "$argChunk"
+		# Check we could get an argument, return code 2 means an error was returned
+		if [ "$?" == "2" ]; then
+			echo "$argName"
 			exit 1
 		fi
 
@@ -106,9 +120,9 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
-		# Check we could get an argument
-		if [ "$argName" == "" ]; then
-			argUnexpected "$argChunk"
+		# Check we could get an argument, return code 2 means an error was returned
+		if [ "$?" == "2" ]; then
+			echo "$argName"
 			exit 1
 		fi
 
@@ -130,9 +144,9 @@ for argChunk in "${argChunks[@]}"; do
 		# Get the name of the argument
 		argName="$(argGetName "$argument")"
 
-		# Check we could get an argument
-		if [ "$argName" == "" ]; then
-			argUnexpected "$argChunk"
+		# Check we could get an argument, return code 2 means an error was returned
+		if [ "$?" == "2" ]; then
+			echo "$argName"
 			exit 1
 		fi
 
@@ -149,6 +163,12 @@ for argChunk in "${argChunks[@]}"; do
 
 		# Get the name of the argument
 		argName="$(argGetName "$lastArgument")"
+
+		# Check we could get an argument, return code 2 means an error was returned
+		if [ "$?" == "2" ]; then
+			echo "$argName"
+			exit 1
+		fi
 
 		# Add the arguments value to the arguments array
 		argv["$argName"]="$argChunk"
