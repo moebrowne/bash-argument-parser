@@ -35,7 +35,7 @@ argExpected['test']="argumentName - Argument description"
 argExpected['u|uniform']="argumentName - Argument description"
 
 # Define both the -a and -A arguments
-argExpected['u|A']="argumentName - Argument description"
+argExpected['a|A']="argumentName - Argument description"
 
 # Define the -d, --deamon and -D arguments
 argExpected['d|deamon|D']="argumentName - Argument description"
