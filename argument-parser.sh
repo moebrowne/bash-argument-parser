@@ -62,7 +62,7 @@ argGetName() {
 	done
 
 	# Check if the argument must be defined
-	if [ "$ARG_MUST_BE_DEFINED" == true ]; then
+	if [ "$ARG_MUST_BE_DEFINED" != false ]; then
 		argUnexpected "$argChunk"
 		exit 2
 	fi
