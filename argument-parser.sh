@@ -8,7 +8,7 @@ regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 argChunks=()
 
-ARG_DEBUG=true
+ARG_DEBUG=false
 ARG_MUST_BE_DEFINED=true
 
 # Expand chained short form arguments, eg -aih => -a -i -h
