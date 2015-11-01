@@ -4,6 +4,18 @@ Takes arguments passed in nearly any format to a bash script and allows easy acc
 
 ## Use
 
+### How To Use
+
+Just include the library in the head of script and call the parser function
+
+```bash
+# Include the Argument Parser library
+source ./my/lib/path/argument-parser.sh
+
+# Parse any arguments
+argParse
+```
+
 ### Get An Arguments Value
 
 There is a helper function named `argValue()` which takes the name of 
