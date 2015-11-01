@@ -6,11 +6,15 @@ Takes arguments passed in nearly any format to a bash script and allows easy acc
 
 ### How To Use
 
-Just include the library in the head of script and call the parser function
+Just include the library in the head of script, define all the arguments you need and call the parser function
 
 ```bash
 # Include the Argument Parser library
 source ./my/lib/path/argument-parser.sh
+
+# Define the expected arguments
+argExpected['test']="argName - This is a short description of the argument and what it does"
+argExpected['R']="secondArgName - This is another argument that can be passed"
 
 # Parse any arguments
 argParse
