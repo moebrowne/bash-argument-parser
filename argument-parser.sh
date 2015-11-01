@@ -8,9 +8,6 @@ regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 argChunks=()
 
-ARG_DEBUG=false
-ARG_MUST_BE_DEFINED=true
-
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
 
@@ -40,7 +37,7 @@ for argChunk in "$@"; do
 	argChunks+=("$argChunk")
 done
 
-[ $ARG_DEBUG == true ] && echo "Expanded argument list: ${argChunks[@]}"
+[ "$ARG_DEBUG" == true ] && echo "Expanded argument list: ${argChunks[@]}"
 
 # Initialise some variables
 declare -A argv
@@ -65,7 +62,7 @@ argGetName() {
 	done
 
 	# Check if the argument must be defined
-	if [ $ARG_MUST_BE_DEFINED == true ]; then
+	if [ "$ARG_MUST_BE_DEFINED" == true ]; then
 		argUnexpected "$argChunk"
 		exit 2
 	fi
@@ -117,7 +114,7 @@ argParse() {
 			# Add the argument to the arguments array
 			argv["$argName"]=''
 
-			[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
+			[ "$ARG_DEBUG" == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
 
 			continue;
 		fi
@@ -140,7 +137,7 @@ argParse() {
 			# Add the argument to the arguments array
 			argv["$argName"]="${BASH_REMATCH[2]}"
 
-			[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
+			[ "$ARG_DEBUG" == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
 
 			continue;
 		fi
@@ -164,7 +161,7 @@ argParse() {
 			# Add the argument to the arguments array
 			argv["$argName"]=''
 
-			[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
+			[ "$ARG_DEBUG" == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
 
 			continue;
 		fi
@@ -184,14 +181,14 @@ argParse() {
 			# Add the arguments value to the arguments array
 			argv["$argName"]="$argChunk"
 
-			[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
+			[ "$ARG_DEBUG" == true ] && echo "Argument Value: $argChunk"
 
 			lastWasArgument=0
 		fi
 	done
 
-	[ $ARG_DEBUG == true ] && echo "Argument array:"
-	[ $ARG_DEBUG == true ] && for k in "${!argv[@]}"
+	[ "$ARG_DEBUG" == true ] && echo "Argument array:"
+	[ "$ARG_DEBUG" == true ] && for k in "${!argv[@]}"
 	do
 		echo "ARG: $k = ${argv[$k]}"
 	done
@@ -199,7 +196,7 @@ argParse() {
 	# Add the standard argc variable containing the number of arguments
 	argc=${#argv[@]}
 
-	[ $ARG_DEBUG == true ] && echo "Argument Count: $argc"
+	[ "$ARG_DEBUG" == true ] && echo "Argument Count: $argc"
 }
 
 # If we are accessing this script directly run the argument parser, useful for testing
