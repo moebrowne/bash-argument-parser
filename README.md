@@ -4,6 +4,48 @@ Takes arguments passed in nearly any format to a bash script and allows easy acc
 
 ## Use
 
+### How To Use
+
+Just include the library in the head of script, define all the arguments you need and call the parser function
+
+```bash
+# Include the Argument Parser library
+source ./my/lib/path/argument-parser.sh
+
+# Define the expected arguments
+argExpected['test']="argName - This is a short description of the argument and what it does"
+argExpected['R']="secondArgName - This is another argument that can be passed"
+
+# Parse any arguments
+argParse
+```
+
+### Defining Expected Arguments
+
+The argument parser can take an array of arguments to expect, it has the following format:
+
+```bash
+# Define the -r argument
+argExpected['r']="argumentName - Argument description"
+
+# Define the --test argument
+argExpected['test']="argumentName - Argument description"
+
+# Define both the -u and --uniform arguments
+argExpected['u|uniform']="argumentName - Argument description"
+
+# Define both the -a and -A arguments
+argExpected['a|A']="argumentName - Argument description"
+
+# Define the -d, --deamon and -D arguments
+argExpected['d|deamon|D']="argumentName - Argument description"
+```
+
+The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argExists` functions, see below.
+
+By default if an argument is passed that hasn't been defined an error will be thrown and the script will exit.
+This feature can be turned off by setting `ARG_MUST_BE_DEFINED` to `false`, note that the argument names will default to the argument its self, without the preceding hyphen(s).
+
 ### Get An Arguments Value
 
 There is a helper function named `argValue()` which takes the name of 
@@ -128,9 +170,9 @@ The order the arguments are passed on the command line makes a difference
 
 * Calling `my-script.sh -f first -f last` will cause `argValue "f"` to return the value `last`
 * Calling `my-script.sh -g 345 -g` will mean cause `argValue "g"` to return nothing
-* Calling `my-script.sh --size 512 --size=1024` will mean cause `argValue "size"` to return 1024
+* Calling `my-script.sh --size 512 --size=1024` will mean cause `argValue "size"` to return `1024`
 
 ## Debug Mode
 
-There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable at the top of the script to `true`.
+There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable to `true` right before calling `argParse`.
 This will cause the script to dump out information about which flags it finds and of what kind etc
