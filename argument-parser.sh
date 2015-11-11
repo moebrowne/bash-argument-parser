@@ -74,7 +74,18 @@ argGetName() {
 }
 
 argList() {
+	echo "ARGUMENTS:"
+	for arguments in "${!argExpected[@]}"
+	do
 
+		regexArgName="(.+) - (.+)"
+		[[ "${argExpected[$arguments]}" =~ $regexArgName ]]
+
+		local argumentName="${BASH_REMATCH[1]}"
+		local argumentDesc="${BASH_REMATCH[2]}"
+		echo "	$arguments ($argumentName)"
+		echo "	  $argumentDesc"
+	done
 }
 
 argUnexpected() {
@@ -205,5 +216,7 @@ argParse() {
 
 # If we are accessing this script directly run the argument parser, useful for testing
 if [ "$0" == "$BASH_SOURCE" ]; then
+	argExpected['t']="test - this is a test"
 	argParse
+	argList
 fi
