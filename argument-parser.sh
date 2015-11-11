@@ -73,6 +73,10 @@ argGetName() {
 	exit 1
 }
 
+argList() {
+
+}
+
 argUnexpected() {
 	echo "UNEXPECTED ARGUMENT $1"
 }
