@@ -90,11 +90,11 @@ argList() {
 			done
 		done <<< "$arguments"
 
-		regexArgName="(.+) - (.+)"
+		regexArgName=".+ - (.+)"
 		[[ "${argExpected[$arguments]}" =~ $regexArgName ]]
 
 		local argumentList="${argumentsPrefixed[@]}"
-		local argumentDesc="${BASH_REMATCH[2]}"
+		local argumentDesc="${BASH_REMATCH[1]}"
 		echo "$argumentList	$argumentDesc" | column -ts $'\t'
 	done
 }
