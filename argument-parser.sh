@@ -6,6 +6,8 @@ regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
 regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
+regexArgDefault='^([^=]+)=(.+) -'
+
 argChunks=()
 
 # Expand chained short form arguments, eg -aih => -a -i -h
@@ -121,7 +123,24 @@ argValue() {
 	fi
 }
 
+argParseDefaults() {
+
+	for arguments in "${!argExpected[@]}"; do
+		[[ ${argExpected[$arguments]} =~ $regexArgDefault ]]
+
+		if [[ "${BASH_REMATCH[@]}" == '' ]]; then
+			continue;
+		fi
+
+		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+	done
+}
+
 argParse() {
+
+	# Populate the argv array with the defaults
+	argParseDefaults
+
 	# Loop over all the argument chunks and determine if the argument type and value
 	for argChunk in "${argChunks[@]}"; do
 
