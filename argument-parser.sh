@@ -73,6 +73,36 @@ argGetName() {
 	exit 1
 }
 
+argList() {
+	echo "ARGUMENT SUMMARY:"
+	for arguments in "${!argExpected[@]}"; do
+
+		local argumentsPrefixed=()
+
+		# Take all the arguments and prefix them with hyphens
+		while IFS='|' read -ra argumentArray; do
+			for argument in "${argumentArray[@]}"; do
+
+				# Add the hyphens
+				if [[ ${#argument} -gt 1 ]]; then
+					argumentsPrefixed+=("--$argument")
+				else
+					argumentsPrefixed+=("-$argument")
+				fi
+			done
+		done <<< "$arguments"
+
+		regexArgName=".+ - (.+)"
+		[[ "${argExpected[$arguments]}" =~ $regexArgName ]]
+
+		local argumentList="${argumentsPrefixed[@]}"
+		local argumentDesc="${BASH_REMATCH[1]}"
+		echo "	$argumentList"
+		echo "		$argumentDesc"
+		echo
+	done
+}
+
 argUnexpected() {
 	echo "UNEXPECTED ARGUMENT $1"
 }
@@ -202,4 +232,5 @@ argParse() {
 # If we are accessing this script directly run the argument parser, useful for testing
 if [ "$0" == "$BASH_SOURCE" ]; then
 	argParse
+	argList
 fi
