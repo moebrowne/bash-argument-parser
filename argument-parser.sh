@@ -94,13 +94,21 @@ argList() {
 			done
 		done <<< "$arguments"
 
-		regexArgName=".+ - (.+)"
+		regexArgName="^[^=]+=?(.+)? - (.+)"
+		echo "${BASH_REMATCH[@]}"
 		[[ "${argExpected[$arguments]}" =~ $regexArgName ]]
 
 		local argumentList="${argumentsPrefixed[@]}"
 		local argumentDesc="${BASH_REMATCH[1]}"
+		local argumentDefault="${BASH_REMATCH[1]}"
+
 		echo "	$argumentList"
-		echo "		$argumentDesc"
+		if [[ "$argumentDefault" == '' ]]; then
+			echo "		$argumentDesc"
+		else
+			echo "		$argumentDesc Default: $argumentDefault"
+		fi
+		echo
 		echo
 	done
 }
