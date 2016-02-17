@@ -97,7 +97,9 @@ argList() {
 
 		local argumentList="${argumentsPrefixed[@]}"
 		local argumentDesc="${BASH_REMATCH[1]}"
-		echo "$argumentList	$argumentDesc" | column -ts $'\t'
+		echo "	$argumentList"
+		echo "		$argumentDesc"
+		echo
 	done
 }
 
