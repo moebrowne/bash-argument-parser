@@ -231,7 +231,6 @@ argParse() {
 
 # If we are accessing this script directly run the argument parser, useful for testing
 if [ "$0" == "$BASH_SOURCE" ]; then
-	argExpected['t|a|test']="test - this is a test"
 	argParse
 	argList
 fi
