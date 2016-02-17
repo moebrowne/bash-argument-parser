@@ -77,6 +77,8 @@ argList() {
 	echo "ARGUMENT SUMMARY:"
 	for arguments in "${!argExpected[@]}"; do
 
+		local argumentsPrefixed=()
+
 		# Take all the arguments and prefix them with hyphens
 		while IFS='|' read -ra argumentArray; do
 			for argument in "${argumentArray[@]}"; do
