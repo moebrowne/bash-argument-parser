@@ -6,6 +6,7 @@ regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
 regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
+regexArgName="^([^= \-]+)"
 regexArgDefault='^([^=]+)=(.*) -'
 
 # Initialise some variables
@@ -57,7 +58,6 @@ argGetName() {
 		[[ "|$k|" =~ $regexArg ]]
 		if [ "${BASH_REMATCH[1]}" != "" ]; then
 
-			regexArgName="(.+) - "
 			[[ "${argExpected[$k]}" =~ $regexArgName ]]
 
 			echo "${BASH_REMATCH[1]}"
