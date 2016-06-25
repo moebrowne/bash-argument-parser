@@ -51,7 +51,8 @@ echo -n "- Short arguments without equals only:	"
 	-b bravo \
 	-c charlie \
 	-d delta \
-	-n 4
+	-n 4 \
+	-q "quoted string"
 echo
 
 echo -n "- Short arguments overriding long arguments:	"
@@ -65,7 +66,8 @@ echo -n "- Short arguments overriding long arguments:	"
 	--delta=badoption \
 	-d delta \
 	--numeric=badoption \
-	-n 4
+	-n 4 \
+	-q "quoted string"
 echo
 
 
