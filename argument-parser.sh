@@ -113,7 +113,7 @@ argList() {
 			local argumentDefault=""
 		fi
 
-		echo "	$argumentList"
+		echo "	$(tput bold)$argumentList$(tput sgr0)"
 		echo "		$argumentDesc $argumentDefault"
 		echo
 	done
