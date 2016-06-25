@@ -7,7 +7,8 @@ regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 regexArgName="^([^= \-]+)"
-regexArgDefault='^([^=]+)=(.*) -'
+regexArgDefault='^[^= \-]+=(.+)? -'
+regexArgDesc='^.* - (.*)'
 
 # Initialise some variables
 declare -A argv;
@@ -96,19 +97,24 @@ argList() {
 			done
 		done <<< "$arguments"
 
-		regexArgName="^[^=]+=?(.+)? - (.+)"
-		[[ "${argExpected[$arguments]}" =~ $regexArgName ]]
-
 		local argumentList="${argumentsPrefixed[@]}"
-		local argumentDesc="${BASH_REMATCH[2]}"
-		local argumentDefault="${BASH_REMATCH[1]}"
+
+		# Get the arguments description
+		[[ "${argExpected[$arguments]}" =~ $regexArgDesc ]]
+		local argumentDesc="${BASH_REMATCH[1]}"
+
+		# Get the arguments default value
+		[[ "${argExpected[$arguments]}" =~ $regexArgDefault ]]
+
+		# Check if a default value could be found
+		if [[ "${BASH_REMATCH}" != "" ]]; then
+			local argumentDefault=" (default: '${BASH_REMATCH[1]}')"
+		else
+			local argumentDefault=""
+		fi
 
 		echo "	$argumentList"
-		if [[ "$argumentDefault" == '' ]]; then
-			echo "		$argumentDesc"
-		else
-			echo "		$argumentDesc Default: $argumentDefault"
-		fi
+		echo "		$argumentDesc $argumentDefault"
 		echo
 	done
 }
@@ -140,7 +146,10 @@ argParseDefaults() {
 			continue;
 		fi
 
-		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+		# Get the name of this argument
+		local argumentName="$(argGetName "$arguments")"
+
+		argv["$argumentName"]="${BASH_REMATCH[1]}"
 	done
 }
 
