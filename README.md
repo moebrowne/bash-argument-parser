@@ -46,6 +46,18 @@ The `argumentName` part of the definition is the name given to the argument and 
 By default if an argument is passed that hasn't been defined an error will be thrown and the script will exit.
 This feature can be turned off by setting `ARG_MUST_BE_DEFINED` to `false`, note that the argument names will default to the argument its self, without the preceding hyphen(s).
 
+### Defining Argument Default Values
+
+You can define a default value that will be used if the argument isn't passed:
+ 
+```
+# Set the -e arguments default value to 900 
+argExpected['e']="argumentName=900 - Argument description"
+```
+
+Now if the script is called and the `-e` argument is omitted `argValue "argumentName"` will return `900`
+The default value can also be set to an empty string (`argExpected['e']="argumentName= - Argument description"`)
+
 ### Get An Arguments Value
 
 There is a helper function named `argValue()` which takes the name of 
