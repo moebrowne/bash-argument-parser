@@ -6,7 +6,19 @@ regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
 regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
+regexArgName="^([^= \-]+)"
+regexArgDefault='^([^=]+)=(.*) -'
+
+# Initialise some variables
+declare -A argv;
+argv=()
+declare -A argExpected
+argExpected=()
+declare -a argChunks
 argChunks=()
+
+lastWasArgument=0
+lastArgument=""
 
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
@@ -39,13 +51,6 @@ done
 
 [ "$ARG_DEBUG" == true ] && echo "Expanded argument list: ${argChunks[@]}"
 
-# Initialise some variables
-declare -A argv
-lastWasArgument=0
-lastArgument=""
-
-declare -A argExpected
-
 argGetName() {
 	for k in "${!argExpected[@]}"
 	do
@@ -53,7 +58,6 @@ argGetName() {
 		[[ "|$k|" =~ $regexArg ]]
 		if [ "${BASH_REMATCH[1]}" != "" ]; then
 
-			regexArgName="(.+) - "
 			[[ "${argExpected[$k]}" =~ $regexArgName ]]
 
 			echo "${BASH_REMATCH[1]}"
@@ -92,13 +96,19 @@ argList() {
 			done
 		done <<< "$arguments"
 
-		regexArgName=".+ - (.+)"
+		regexArgName="^[^=]+=?(.+)? - (.+)"
 		[[ "${argExpected[$arguments]}" =~ $regexArgName ]]
 
 		local argumentList="${argumentsPrefixed[@]}"
-		local argumentDesc="${BASH_REMATCH[1]}"
+		local argumentDesc="${BASH_REMATCH[2]}"
+		local argumentDefault="${BASH_REMATCH[1]}"
+
 		echo "	$argumentList"
-		echo "		$argumentDesc"
+		if [[ "$argumentDefault" == '' ]]; then
+			echo "		$argumentDesc"
+		else
+			echo "		$argumentDesc Default: $argumentDefault"
+		fi
 		echo
 	done
 }
@@ -121,7 +131,24 @@ argValue() {
 	fi
 }
 
+argParseDefaults() {
+
+	for arguments in "${!argExpected[@]}"; do
+		[[ ${argExpected[$arguments]} =~ $regexArgDefault ]]
+
+		if [[ "${BASH_REMATCH[@]}" == '' ]]; then
+			continue;
+		fi
+
+		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+	done
+}
+
 argParse() {
+
+	# Populate the argv array with the defaults
+	argParseDefaults
+
 	# Loop over all the argument chunks and determine if the argument type and value
 	for argChunk in "${argChunks[@]}"; do
 
