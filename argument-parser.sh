@@ -6,7 +6,7 @@ regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
 regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
-regexArgDefault='^([^=]+)=(.+) -'
+regexArgDefault='^([^=]+)=(.*) -'
 
 # Initialise some variables
 declare -A argv;
