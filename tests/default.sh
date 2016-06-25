@@ -13,15 +13,15 @@ argExpected['numeric|n']="numericArg=25 - A numeric argument"
 # Parse any arguments
 argParse
 
-[ "$(argValue "alphaArg")" == "alpha" ] && fail || ok
-[ "$(argValue "bravoArg")" == "bravo" ] && fail || ok
-[ "$(argValue "charlieArg")" == "charlie" ] && fail || ok
-[ "$(argValue "deltaArg")" == "delta" ] && fail || ok
-[ "$(argValue "numericArg")" == 25 ] && fail || ok
+[ "$(argValue "alphaArg")" == "alpha" ] && fail || pass
+[ "$(argValue "bravoArg")" == "bravo" ] && fail || pass
+[ "$(argValue "charlieArg")" == "charlie" ] && fail || pass
+[ "$(argValue "deltaArg")" == "delta" ] && fail || pass
+[ "$(argValue "numericArg")" == 25 ] && fail || pass
 
 
-argExists "alphaArg" && fail || ok
-argExists "bravoArg" && fail || ok
-argExists "charlieArg" && fail || ok
-argExists "deltaArg" && fail || ok
-argExists "numericArg" && fail || ok
+argExists "alphaArg" && fail || pass
+argExists "bravoArg" && fail || pass
+argExists "charlieArg" && fail || pass
+argExists "deltaArg" && fail || pass
+argExists "numericArg" && fail || pass

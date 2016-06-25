@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ok() {
+pass() {
 	echo -en "\033[31m\xE2\x80\xA2\033[0m"
 }
 

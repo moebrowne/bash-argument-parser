@@ -14,17 +14,17 @@ argExpected['quoted|q']="quotedArg - A quoted string argument"
 # Parse any arguments
 argParse
 
-[ "$(argValue "alphaArg")" == "alpha" ] && fail || ok
-[ "$(argValue "bravoArg")" == "bravo" ] && fail || ok
-[ "$(argValue "charlieArg")" == "charlie" ] && fail || ok
-[ "$(argValue "deltaArg")" == "delta" ] && fail || ok
-[ "$(argValue "numericArg")" == 4 ] && fail || ok
-[ "$(argValue "quotedArg")" == "quoted string" ] && fail || ok
+[ "$(argValue "alphaArg")" == "alpha" ] && fail || pass
+[ "$(argValue "bravoArg")" == "bravo" ] && fail || pass
+[ "$(argValue "charlieArg")" == "charlie" ] && fail || pass
+[ "$(argValue "deltaArg")" == "delta" ] && fail || pass
+[ "$(argValue "numericArg")" == 4 ] && fail || pass
+[ "$(argValue "quotedArg")" == "quoted string" ] && fail || pass
 
 
-argExists "alphaArg" && fail || ok
-argExists "bravoArg" && fail || ok
-argExists "charlieArg" && fail || ok
-argExists "deltaArg" && fail || ok
-argExists "numericArg" && fail || ok
-argExists "quotedArg" && fail || ok
+argExists "alphaArg" && fail || pass
+argExists "bravoArg" && fail || pass
+argExists "charlieArg" && fail || pass
+argExists "deltaArg" && fail || pass
+argExists "numericArg" && fail || pass
+argExists "quotedArg" && fail || pass
