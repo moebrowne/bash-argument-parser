@@ -169,8 +169,8 @@ The order the arguments are passed on the command line makes a difference
 ### Examples
 
 * Calling `my-script.sh -f first -f last` will cause `argValue "f"` to return the value `last`
-* Calling `my-script.sh -g 345 -g` will mean cause `argValue "g"` to return nothing
-* Calling `my-script.sh --size 512 --size=1024` will mean cause `argValue "size"` to return `1024`
+* Calling `my-script.sh -g 345 -g` will cause `argValue "g"` to return nothing
+* Calling `my-script.sh --size 512 --size=1024` will cause `argValue "size"` to return `1024`
 
 ## Debug Mode
 
