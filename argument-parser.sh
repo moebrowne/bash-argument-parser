@@ -8,7 +8,16 @@ regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
 regexArgDefault='^([^=]+)=(.+) -'
 
+# Initialise some variables
+declare -A argv;
+argv=()
+declare -A argExpected
+argExpected=()
+declare -a argChunks
 argChunks=()
+
+lastWasArgument=0
+lastArgument=""
 
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
@@ -40,13 +49,6 @@ for argChunk in "$@"; do
 done
 
 [ "$ARG_DEBUG" == true ] && echo "Expanded argument list: ${argChunks[@]}"
-
-# Initialise some variables
-declare -A argv
-lastWasArgument=0
-lastArgument=""
-
-declare -A argExpected
 
 argGetName() {
 	for k in "${!argExpected[@]}"
