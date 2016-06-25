@@ -176,3 +176,11 @@ The order the arguments are passed on the command line makes a difference
 
 There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable to `true` right before calling `argParse`.
 This will cause the script to dump out information about which flags it finds and of what kind etc
+
+## Testing
+
+There is a rudimentary test suite included with the project that can be used to check that changes haven't broken any other part of the code.
+
+### Running Tests
+
+It's as simple as executing `test.sh` in the `tests` directory, if you see any red blips there is a problem, if it's all green then everything should be ok
