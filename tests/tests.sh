@@ -42,7 +42,7 @@ echo -n "- Long arguments overriding short arguments:	"
 	--delta=delta \
 	-n badoption \
 	--numeric=4 \
-	-q "bad quoted string"
+	-q "quoted string"
 echo
 
 echo -n "- Short arguments without equals only:	"
