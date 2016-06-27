@@ -169,8 +169,8 @@ for argChunk in "${argChunks[@]}"; do
 
 	# Check if we've passed the last argument marker
 	if [ $endOfArguments == 1 ]; then
+		# Add this chunk to the array or parameters
 		parameters+=("$argChunk")
-		echo "#:$argChunk"
 		continue
 	fi
 
@@ -271,6 +271,10 @@ for argChunk in "${argChunks[@]}"; do
 		lastWasArgument=0
 	fi
 done
+
+# Reassign the positional arguments to any that occurred after the end of arguments marker (--)
+set -- ${parameters[@]}
+
 
 [ "$ARG_DEBUG" == true ] && echo "Argument array:"
 [ "$ARG_DEBUG" == true ] && for k in "${!argv[@]}"
