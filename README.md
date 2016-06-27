@@ -1,30 +1,32 @@
 # BASH Argument Parser
 
-Takes arguments passed in nearly any format to a bash script and allows easy access to them and their values
+Takes arguments passed to a bash script in nearly any format and allows easy access to them and their values
 
 ## Use
 
 ### How To Use
 
-Just include the library in the head of script, define all the arguments you need and call the parser function
+Just define all the arguments you need and include the library in the head of script, that's it.
 
 ```bash
-# Include the Argument Parser library
-source ./my/lib/path/argument-parser.sh
-
 # Define the expected arguments
+declare -A argExpected
 argExpected['test']="argName - This is a short description of the argument and what it does"
 argExpected['R']="secondArgName - This is another argument that can be passed"
 
-# Parse any arguments
-argParse
+# Include and run the Argument Parser library
+source ./my/lib/path/argument-parser.sh
 ```
 
 ### Defining Expected Arguments
 
-The argument parser can take an array of arguments to expect, it has the following format:
+The argument parser takes an array of arguments to expect, it has the following format:
 
 ```bash
+# Define argExpected as an associative array
+# This must occur once before you build the array of argument definitions
+declare -A argExpected
+
 # Define the -r argument
 argExpected['r']="argumentName - Argument description"
 
@@ -186,7 +188,7 @@ The order the arguments are passed on the command line makes a difference
 
 ## Debug Mode
 
-There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable to `true` right before calling `argParse`.
+There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable to `true` right before including the library.
 This will cause the script to dump out information about which flags it finds and of what kind etc
 
 ## Testing
