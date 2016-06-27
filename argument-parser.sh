@@ -13,8 +13,6 @@ regexArgDesc='^.* - (.*)'
 # Initialise some variables
 declare -A argv;
 argv=()
-declare -A argExpected
-argExpected=()
 declare -a argChunks
 argChunks=()
 declare -a parameters
