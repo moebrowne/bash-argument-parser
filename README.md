@@ -52,7 +52,7 @@ This feature can be turned off by setting `ARG_MUST_BE_DEFINED` to `false`, note
 
 You can define a default value that will be used if the argument isn't passed:
  
-```
+```bash
 # Set the -e arguments default value to 900 
 argExpected['e']="argumentName=900 - Argument description"
 ```
