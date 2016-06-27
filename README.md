@@ -186,6 +186,24 @@ The order the arguments are passed on the command line makes a difference
 * Calling `my-script.sh -g 345 -g` will cause `argValue "g"` to return nothing
 * Calling `my-script.sh --size 512 --size=1024` will cause `argValue "size"` to return `1024`
 
+## Passing Additional Non-Arguments Strings
+
+If you need to pass in non-argument stings along side your arguments you just need to add the end of arguments marker `--` and anything that follows wont be parsed as an argument but instead will be assigned to a numbered positional argument:
+
+For example running: `./script.sh --arg1 --arg2 -- file1 file2 -f file5 fileN`
+
+Will be parsed as:
+
+* Argument: `--arg1`
+* Argument: `--arg2`
+* Non-Argument: `file1` (accessible via `$1`)
+* Non-Argument: `file2` (accessible via `$2`)
+* Non-Argument: `-f` (accessible via `$3`)
+* Non-Argument: `file5` (accessible via `$4`)
+* Non-Argument: `fileN` (accessible via `${N}`)
+
+This way you can define arguments along side an arbitrary number of strings you may want to operate on at the same time!
+
 ## Debug Mode
 
 There is a debug mode that can be enabled by setting the `ARG_DEBUG` variable to `true` right before including the library.
