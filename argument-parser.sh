@@ -156,6 +156,11 @@ argParseDefaults() {
 	done
 }
 
+
+#
+## Start parsing arguments
+#
+
 # Populate the argv array with the defaults
 argParseDefaults
 
@@ -277,6 +282,8 @@ done
 argc=${#argv[@]}
 
 [ "$ARG_DEBUG" == true ] && echo "Argument Count: $argc"
+
+
 
 # If we are accessing this script directly run the argument parser, useful for testing
 if [ "$0" == "$BASH_SOURCE" ]; then
