@@ -17,9 +17,12 @@ declare -A argExpected
 argExpected=()
 declare -a argChunks
 argChunks=()
+declare -a parameters
+parameters=()
 
 lastWasArgument=0
 lastArgument=""
+endOfArguments=0
 
 # Expand chained short form arguments, eg -aih => -a -i -h
 for argChunk in "$@"; do
@@ -160,6 +163,19 @@ argParse() {
 
 	# Loop over all the argument chunks and determine if the argument type and value
 	for argChunk in "${argChunks[@]}"; do
+
+		# Check if we've passed the last argument marker
+		if [ $endOfArguments == 1 ]; then
+			parameters+=("$argChunk")
+			echo "#:$argChunk"
+			continue
+		fi
+
+		# Check if this chunk is the last argument marker
+		if [ "$argChunk" == "--" ]; then
+			endOfArguments=1
+			continue;
+		fi
 
 		# Check if this chunk is a short form argument
 		[[ $argChunk =~ $regexArgShort ]]
