@@ -32,7 +32,7 @@ for argChunk in "$@"; do
 		# Get the chunk or arguments
 		chainedChunk="${BASH_REMATCH[1]}";
 
-		[ $ARG_DEBUG == true ] && echo "Expanding chained argument chunk: $chainedChunk"
+		[ "$ARG_DEBUG" == true ] && echo "Expanding chained argument chunk: $chainedChunk"
 
 		i=0
 		# Expand out the chunk into individual arguments
