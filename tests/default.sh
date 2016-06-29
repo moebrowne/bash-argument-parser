@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # Define the expected arguments
 declare -A argExpected

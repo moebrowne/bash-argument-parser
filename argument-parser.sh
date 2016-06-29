@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # Define the regex for matching the arguments
 regexArgShort='^-([a-zA-Z0-9])$'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 pass() {
 	echo -en "\033[31m\xE2\x80\xA2\033[0m"
