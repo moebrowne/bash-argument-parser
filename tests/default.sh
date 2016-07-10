@@ -19,9 +19,9 @@ source ../argument-parser.sh
 [ "$(argValue "hyphenated-arg")" == "hyphenated" ] && pass || fail
 
 
-argExists "alphaArg" && fail || pass
-argExists "bravoArg" && fail || pass
-argExists "charlieArg" && fail || pass
-argExists "deltaArg" && fail || pass
-argExists "numericArg" && fail || pass
-argExists "hyphenated-arg" && fail || pass
+argPassed "alphaArg" && fail || pass
+argPassed "bravoArg" && fail || pass
+argPassed "charlieArg" && fail || pass
+argPassed "deltaArg" && fail || pass
+argPassed "numericArg" && fail || pass
+argPassed "hyphenated-arg" && fail || pass

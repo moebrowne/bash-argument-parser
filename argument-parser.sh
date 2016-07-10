@@ -125,7 +125,7 @@ argUnexpected() {
 	echo "UNEXPECTED ARGUMENT $1"
 }
 
-argExists() {
+argPassed() {
 	if [ -z ${argv["$1"]+abc} ]; then
 		return 1 # false
 	else
@@ -142,7 +142,7 @@ argHasDefault() {
 }
 
 argValue() {
-	if argExists "$1"; then
+	if argPassed "$1"; then
 		echo "${argv["$1"]}"
 		exit 0
 	fi

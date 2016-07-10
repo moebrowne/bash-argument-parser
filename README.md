@@ -43,7 +43,7 @@ argExpected['a|A']="argumentName - Argument description"
 argExpected['d|deamon|D']="argumentName - Argument description"
 ```
 
-The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argExists` functions, see below. The argument name is case sensitive and must not contain spaces or an equals sign.
+The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argPassed` functions, see below. The argument name is case sensitive and must not contain spaces or an equals sign.
 
 By default if an argument is passed that hasn't been defined an error will be thrown and the script will exit.
 This feature can be turned off by setting `ARG_MUST_BE_DEFINED` to `false`, note that the argument names will default to the argument its self, without the preceding hyphen(s).
@@ -101,32 +101,32 @@ esac
 
 ### Check If An Argument Has Been Passed
 
-There is a helper function named `argExists()` which takes the name of 
+There is a helper function named `argPassed` which takes the name of 
 an argument as its only parameter and returns a boolean.
 
-`argExist` will return false if the argument has fallen back to its default value*
+`argPassed` will return false if the argument has fallen back to its default value*
 
 ```bash
 # -v
-if argExists 'v'; then
+if argPassed 'v'; then
 	echo "The -v argument has been passed"
 fi
 
 # -rMd
-argExists 'r' && echo "The -r argument was passed"
+argPassed 'r' && echo "The -r argument was passed"
 
 # --long-argument-name
-if argExists 'long-argument-name'; then
+if argPassed 'long-argument-name'; then
 	# Do something awesome
 fi
 
 # --protocol=HTTP
-if argExists 'protocol'; then
+if argPassed 'protocol'; then
 	# Do something awesome
 fi
 
 # -O 43
-argExists 'O' && echo "Found the -O argument"
+argPassed 'O' && echo "Found the -O argument"
 ```
 
 ## Supported Argument Formats
