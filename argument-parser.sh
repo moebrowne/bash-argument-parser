@@ -141,15 +141,19 @@ argHasDefault() {
 	fi
 }
 
+argValueDefault() {
+	if argHasDefault "$1"; then
+		echo "${argd["$1"]}"
+	fi
+}
+
 argValue() {
 	if argPassed "$1"; then
 		echo "${argv["$1"]}"
 		exit 0
 	fi
 
-	if argHasDefault "$1"; then
-		echo "${argd["$1"]}"
-	fi
+	echo "$(argValueDefault "$1")"
 }
 
 argParseDefaults() {
