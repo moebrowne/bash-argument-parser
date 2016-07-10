@@ -12,19 +12,19 @@ argExpected['hyphen-ated|h']="hyphenated-arg - A hyphenated argument name"
 # Include the Argument Parser library
 source ../argument-parser.sh
 
-[ "$(argValue "alphaArg")" == "alpha" ] && fail || pass
-[ "$(argValue "bravoArg")" == "bravo" ] && fail || pass
-[ "$(argValue "charlieArg")" == "charlie" ] && fail || pass
-[ "$(argValue "deltaArg")" == "delta" ] && fail || pass
-[ "$(argValue "numericArg")" == 4 ] && fail || pass
-[ "$(argValue "quotedArg")" == "quoted string" ] && fail || pass
-[ "$(argValue "hyphenated-arg")" == "hyphenated" ] && fail || pass
+[ "$(argValue "alphaArg")" == "alpha" ] && pass || fail
+[ "$(argValue "bravoArg")" == "bravo" ] && pass || fail
+[ "$(argValue "charlieArg")" == "charlie" ] && pass || fail
+[ "$(argValue "deltaArg")" == "delta" ] && pass || fail
+[ "$(argValue "numericArg")" == 4 ] && pass || fail
+[ "$(argValue "quotedArg")" == "quoted string" ] && pass || fail
+[ "$(argValue "hyphenated-arg")" == "hyphenated" ] && pass || fail
 
 
-argExists "alphaArg" && fail || pass
-argExists "bravoArg" && fail || pass
-argExists "charlieArg" && fail || pass
-argExists "deltaArg" && fail || pass
-argExists "numericArg" && fail || pass
-argExists "quotedArg" && fail || pass
-argExists "hyphenated-arg" && fail || pass
+argExists "alphaArg" && pass || fail
+argExists "bravoArg" && pass || fail
+argExists "charlieArg" && pass || fail
+argExists "deltaArg" && pass || fail
+argExists "numericArg" && pass || fail
+argExists "quotedArg" && pass || fail
+argExists "hyphenated-arg" && pass || fail
