@@ -7,6 +7,7 @@ argExpected['charlie|c']="charlieArg - The third argument"
 argExpected['delta|d']="deltaArg - The forth argument"
 argExpected['numeric|n']="numericArg - A numeric argument"
 argExpected['quoted|q']="quotedArg - A quoted string argument"
+argExpected['hyphen-ated|h']="hyphenated-arg - A hyphenated argument name"
 
 # Include the Argument Parser library
 source ../argument-parser.sh
@@ -17,6 +18,7 @@ source ../argument-parser.sh
 [ "$(argValue "deltaArg")" == "delta" ] && fail || pass
 [ "$(argValue "numericArg")" == 4 ] && fail || pass
 [ "$(argValue "quotedArg")" == "quoted string" ] && fail || pass
+[ "$(argValue "hyphenated-arg")" == "hyphenated" ] && fail || pass
 
 
 argExists "alphaArg" && fail || pass
@@ -25,3 +27,4 @@ argExists "charlieArg" && fail || pass
 argExists "deltaArg" && fail || pass
 argExists "numericArg" && fail || pass
 argExists "quotedArg" && fail || pass
+argExists "hyphenated-arg" && fail || pass

@@ -17,7 +17,8 @@ echo -n "- Long arguments with equals only:	"
 	--charlie=charlie \
 	--delta=delta \
 	--numeric=4 \
-	--quoted="quoted string"
+	--quoted="quoted string" \
+	--hyphen-ated=hyphenated
 echo
 
 echo -n "- Long arguments without equals only:	"
@@ -27,7 +28,8 @@ echo -n "- Long arguments without equals only:	"
 	--charlie charlie \
 	--delta delta \
 	--numeric 4 \
-	--quoted "quoted string"
+	--quoted "quoted string" \
+	--hyphen-ated hyphenated
 echo
 
 echo -n "- Long arguments overriding short arguments:	"
@@ -42,7 +44,9 @@ echo -n "- Long arguments overriding short arguments:	"
 	--delta=delta \
 	-n badoption \
 	--numeric=4 \
-	-q "quoted string"
+	-q "quoted string" \
+	-h badoption \
+	--hyphen-ated hyphenated
 echo
 
 echo -n "- Short arguments without equals only:	"
@@ -52,7 +56,8 @@ echo -n "- Short arguments without equals only:	"
 	-c charlie \
 	-d delta \
 	-n 4 \
-	-q "quoted string"
+	-q "quoted string" \
+	-h hyphenated
 echo
 
 echo -n "- Short arguments overriding long arguments:	"
@@ -67,7 +72,9 @@ echo -n "- Short arguments overriding long arguments:	"
 	-d delta \
 	--numeric=badoption \
 	-n 4 \
-	-q "quoted string"
+	-q "quoted string" \
+	--hyphen-ated=badoption \
+	-h hyphenated
 echo
 
 

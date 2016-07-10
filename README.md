@@ -43,7 +43,7 @@ argExpected['a|A']="argumentName - Argument description"
 argExpected['d|deamon|D']="argumentName - Argument description"
 ```
 
-The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argExists` functions, see below.
+The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argExists` functions, see below. The argument name is case sensitive and must not contain spaces or an equals sign.
 
 By default if an argument is passed that hasn't been defined an error will be thrown and the script will exit.
 This feature can be turned off by setting `ARG_MUST_BE_DEFINED` to `false`, note that the argument names will default to the argument its self, without the preceding hyphen(s).
