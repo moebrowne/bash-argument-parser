@@ -12,6 +12,8 @@ regexArgDesc='^.* - (.*)'
 # Initialise some variables
 declare -A argv;
 argv=()
+declare -A argd;
+argd=()
 declare -a argChunks
 argChunks=()
 declare -a parameters
@@ -131,9 +133,22 @@ argExists() {
 	fi
 }
 
+argHasDefault() {
+	if [ -z ${argd["$1"]+abc} ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
 argValue() {
 	if argExists "$1"; then
 		echo "${argv["$1"]}"
+		exit 0
+	fi
+
+	if argHasDefault "$1"; then
+		echo "${argd["$1"]}"
 	fi
 }
 
@@ -149,7 +164,7 @@ argParseDefaults() {
 		# Get the name of this argument
 		local argumentName="$(argGetName "$arguments")"
 
-		argv["$argumentName"]="${BASH_REMATCH[1]}"
+		argd["$argumentName"]="${BASH_REMATCH[1]}"
 	done
 }
 
