@@ -65,7 +65,8 @@ The default value can also be set to an empty string (`argExpected['e']="argumen
 There is a helper function named `argValue()` which takes the name of 
 an argument as its only parameter and returns the value given to the argument.
 
-If the argument doesn't have a value or hasn't been passed nothing is returned.
+If the argument doesn't have a value or hasn't been passed nothing is returned 
+unless it's been given a default, in which case the default value will be returned.
 
 ```bash
 # -a 'some text'
@@ -102,6 +103,8 @@ esac
 
 There is a helper function named `argExists()` which takes the name of 
 an argument as its only parameter and returns a boolean.
+
+`argExist` will return false if the argument has fallen back to its default value*
 
 ```bash
 # -v
