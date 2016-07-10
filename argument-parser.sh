@@ -127,17 +127,17 @@ argUnexpected() {
 
 argExists() {
 	if [ -z ${argv["$1"]+abc} ]; then
-		return 1
+		return 1 # false
 	else
-		return 0
+		return 0 # true
 	fi
 }
 
 argHasDefault() {
 	if [ -z ${argd["$1"]+abc} ]; then
-		return 1
+		return 1 # false
 	else
-		return 0
+		return 0 # true
 	fi
 }
 
