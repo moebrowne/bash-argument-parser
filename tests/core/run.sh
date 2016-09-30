@@ -2,7 +2,7 @@
 
 testDir=$(dirname $0)
 
-echo -n " - Long arguments with equals only:	"
+echo -n " - Long arguments with equals only testing (--long=value):	"
 . $testDir/env.sh \
 	--alpha=alpha \
 	--bravo=bravo \
@@ -13,7 +13,7 @@ echo -n " - Long arguments with equals only:	"
 	--hyphen-ated=hyphenated
 echo
 
-echo -n " - Long arguments without equals only:	"
+echo -n " - Long arguments without equals only (--long):	 "
 . $testDir/env.sh \
 	--alpha alpha \
 	--bravo bravo \
@@ -24,7 +24,7 @@ echo -n " - Long arguments without equals only:	"
 	--hyphen-ated hyphenated
 echo
 
-echo -n " - Long arguments overriding short arguments:	"
+echo -n " - Long arguments overriding short arguments (-l --long):	"
 . $testDir/env.sh \
 	-a badoption \
 	--alpha=alpha \
@@ -41,7 +41,7 @@ echo -n " - Long arguments overriding short arguments:	"
 	--hyphen-ated hyphenated
 echo
 
-echo -n " - Short arguments without equals only:	"
+echo -n " - Short arguments without equals only (-s):	"
 . $testDir/env.sh \
 	-a alpha \
 	-b bravo \
@@ -52,7 +52,7 @@ echo -n " - Short arguments without equals only:	"
 	-h hyphenated
 echo
 
-echo -n " - Short arguments overriding long arguments:	"
+echo -n " - Short arguments overriding long arguments (--short -s):	"
 . $testDir/env.sh \
 	--alpha=badoption \
 	-a alpha \
