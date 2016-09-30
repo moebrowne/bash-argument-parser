@@ -1,4 +1,6 @@
 
+source tools.sh
+
 # Define the expected arguments
 declare -A argExpected
 argExpected['alpha|a']="alphaArg=alpha - The first argument"
