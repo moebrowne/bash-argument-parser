@@ -23,3 +23,8 @@ echo -n " - Long Override Short	"
 ./overrides/withoutDefault.sh -s unexpected --long=expected
 ./overrides/withoutDefault.sh -s unexpected --long expected
 echo
+
+
+echo -n "# Usage	"
+./usage/withDefault.sh
+echo
