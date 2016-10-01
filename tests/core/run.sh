@@ -24,23 +24,6 @@ echo -n " - Long arguments without equals only (--long):	 "
 	--hyphen-ated hyphenated
 echo
 
-echo -n " - Long arguments overriding short arguments (-l --long):	"
-. $testDir/env.sh \
-	-a badoption \
-	--alpha=alpha \
-	-b badoption \
-	--bravo=bravo \
-	-c badoption \
-	--charlie=charlie \
-	-d badoption \
-	--delta=delta \
-	-n badoption \
-	--numeric=4 \
-	-q "quoted string" \
-	-h badoption \
-	--hyphen-ated hyphenated
-echo
-
 echo -n " - Short arguments without equals only (-s):	"
 . $testDir/env.sh \
 	-a alpha \
@@ -49,22 +32,5 @@ echo -n " - Short arguments without equals only (-s):	"
 	-d delta \
 	-n 4 \
 	-q "quoted string" \
-	-h hyphenated
-echo
-
-echo -n " - Short arguments overriding long arguments (--short -s):	"
-. $testDir/env.sh \
-	--alpha=badoption \
-	-a alpha \
-	--bravo=badoption \
-	-b bravo \
-	--charlie=badoption \
-	-c charlie \
-	--delta=badoption \
-	-d delta \
-	--numeric=badoption \
-	-n 4 \
-	-q "quoted string" \
-	--hyphen-ated=badoption \
 	-h hyphenated
 echo
