@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
 
-pass() {
-	echo -en "\033[32m\xE2\x80\xA2\033[0m"
-}
+testDir=$(dirname $0)
 
-fail() {
-	echo -en "\033[31m\xE2\x80\xA2\033[0m"
-}
-
-echo "Running Tests"
-
-echo -n "- Long arguments with equals only:	"
-. simple.sh \
+echo -n " - Long arguments with equals only testing (--long=value):	"
+. $testDir/env.sh \
 	--alpha=alpha \
 	--bravo=bravo \
 	--charlie=charlie \
@@ -21,8 +13,8 @@ echo -n "- Long arguments with equals only:	"
 	--hyphen-ated=hyphenated
 echo
 
-echo -n "- Long arguments without equals only:	"
-. simple.sh \
+echo -n " - Long arguments without equals only (--long):	 "
+. $testDir/env.sh \
 	--alpha alpha \
 	--bravo bravo \
 	--charlie charlie \
@@ -32,8 +24,8 @@ echo -n "- Long arguments without equals only:	"
 	--hyphen-ated hyphenated
 echo
 
-echo -n "- Long arguments overriding short arguments:	"
-. simple.sh \
+echo -n " - Long arguments overriding short arguments (-l --long):	"
+. $testDir/env.sh \
 	-a badoption \
 	--alpha=alpha \
 	-b badoption \
@@ -49,8 +41,8 @@ echo -n "- Long arguments overriding short arguments:	"
 	--hyphen-ated hyphenated
 echo
 
-echo -n "- Short arguments without equals only:	"
-. simple.sh \
+echo -n " - Short arguments without equals only (-s):	"
+. $testDir/env.sh \
 	-a alpha \
 	-b bravo \
 	-c charlie \
@@ -60,8 +52,8 @@ echo -n "- Short arguments without equals only:	"
 	-h hyphenated
 echo
 
-echo -n "- Short arguments overriding long arguments:	"
-. simple.sh \
+echo -n " - Short arguments overriding long arguments (--short -s):	"
+. $testDir/env.sh \
 	--alpha=badoption \
 	-a alpha \
 	--bravo=badoption \
@@ -75,14 +67,4 @@ echo -n "- Short arguments overriding long arguments:	"
 	-q "quoted string" \
 	--hyphen-ated=badoption \
 	-h hyphenated
-echo
-
-
-
-
-
-
-
-echo -n "- Default values:	"
-. default.sh
 echo
