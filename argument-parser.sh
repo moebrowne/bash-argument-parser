@@ -116,7 +116,7 @@ argList() {
 		fi
 
 		echo "	$(tput bold)$argumentList$(tput sgr0)"
-		echo "		$argumentDesc $argumentDefault"
+		echo "		$argumentDesc$argumentDefault"
 		echo
 	done
 }
