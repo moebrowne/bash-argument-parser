@@ -4,12 +4,12 @@ echo -n '['
 
 # Define the expected arguments
 declare -A argExpected
-argExpected['alpha']="alpha=defaultValue - Long argument with default"
-argExpected['bravo']="bravo - Long argument without default"
-argExpected['a']="alphaShort=defaultValue - Short argument with default"
-argExpected['b']="bravoShort - Short argument without default"
-argExpected['charlie|c']="charlie - Short and long argument without default"
-argExpected['delta|d']="delta=defaultValue - Short and long argument with default"
+argExpected['alpha']="alpha=defaultValue; Long argument with default"
+argExpected['bravo']="bravo; Long argument without default"
+argExpected['a']="alphaShort=defaultValue; Short argument with default"
+argExpected['b']="bravoShort; Short argument without default"
+argExpected['charlie|c']="charlie; Short and long argument without default"
+argExpected['delta|d']="delta=defaultValue; Short and long argument with default"
 
 # Include the Argument Parser library
 source ../argument-parser.sh
