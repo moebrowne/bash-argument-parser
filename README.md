@@ -149,14 +149,9 @@ newlines"
 
 ```bash
 --debug
---test mode0
---test "all the code"
---Case-Sensitive true
+--Case-Sensitive
 --long-parameter
---newline "
-"
 --1337
---365 "days"
 ```
 
 ### Long Form With Value
