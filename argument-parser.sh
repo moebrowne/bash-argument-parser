@@ -5,7 +5,7 @@ regexArgShortChained='^-([a-zA-Z0-9]{2,})$'
 regexArgLong='^--([a-zA-Z0-9\-]{2,})$'
 regexArgLongWithValue='^--([a-zA-Z0-9\-]{2,})=(.*)$'
 
-regexArgName="^([^= ]+)"
+regexArgName="^([^=;]+)"
 regexArgDefault='^[^= ]+=([^;]*)'
 regexArgDesc='^.*; (.*)'
 
