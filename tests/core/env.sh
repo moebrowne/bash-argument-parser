@@ -3,13 +3,13 @@ source tools.sh
 
 # Define the expected arguments
 declare -A argExpected
-argExpected['alpha|a']="alphaArg - The first argument"
-argExpected['bravo|b']="bravoArg - The second argument"
-argExpected['charlie|c']="charlieArg - The third argument"
-argExpected['delta|d']="deltaArg - The forth argument"
-argExpected['numeric|n']="numericArg - A numeric argument"
-argExpected['quoted|q']="quotedArg - A quoted string argument"
-argExpected['hyphen-ated|h']="hyphenated-arg - A hyphenated argument name"
+argExpected['alpha|a']="alphaArg; The first argument"
+argExpected['bravo|b']="bravoArg; The second argument"
+argExpected['charlie|c']="charlieArg; The third argument"
+argExpected['delta|d']="deltaArg; The forth argument"
+argExpected['numeric|n']="numericArg; A numeric argument"
+argExpected['quoted|q']="quotedArg; A quoted string argument"
+argExpected['hyphen-ated|h']="hyphenated-arg; A hyphenated argument name"
 
 # Include the Argument Parser library
 source ../argument-parser.sh
