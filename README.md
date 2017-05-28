@@ -147,23 +147,24 @@ newlines"
 
 ### Long Form
 
+The value of long form arguments can be delimited by either and `=` or a space
+
 ```bash
 --debug
+--test
 --Case-Sensitive
 --long-parameter
+--verbose 3
 --1337
-```
-
-### Long Form With Value
-
-```bash
 --lang="en"
 --crawl=false
+--test "all the code"
 --match-pattern=".+"
 --newline="
 "
 --UpperCase=sensitive
 --45="25+20"
+--365 "days"
 ```
 
 ### Chained Short Form Arguments
