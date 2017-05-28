@@ -147,7 +147,7 @@ newlines"
 
 ### Long Form
 
-The value of long form arguments can be delimited by either and `=` or a space
+The value of long form arguments can be delimited by either an `=` or a space
 
 ```bash
 --debug
