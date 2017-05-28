@@ -16,8 +16,6 @@ source ../argument-parser.sh
 
 IFS='' usageActual="$(argList)"
 
-echo "$usageActual"
-
 usageExpected="ARGUMENT SUMMARY:
 	$(tput bold)--delta -d$(tput sgr0)
 		Short and long argument with default (default: 'defaultValue')
