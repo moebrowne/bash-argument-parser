@@ -1,0 +1,26 @@
+versions:
+    "develop":
+        changed:
+            - "Changed the description delimeter to a semicolon"
+        added:
+            - "Added a new suite of tests"
+            - "Added Travis CI"
+    "1.2.0":
+        added:
+            - "Added support for the end of arguments marker (--)"
+            - "Added default values for arguments that aren't passed"
+            - "Added a usage output"
+            - "Added some simple tests"
+    "1.1.0":
+        changed:
+            - "General code and documentation improvements"
+            - "The parser will now run if accessed directly"
+    "1.0.2":
+        added:
+            - "Added the standard argc and argv variables"
+            - "Made the parser fail by default if unknown arguments are passed"
+    "1.0.1":
+        added:
+            - "Added support for numeric arguments"
+            - "Added support for using = to assign an arguments value"
+    "1.0.0":
