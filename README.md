@@ -11,8 +11,8 @@ Just define all the arguments you need and include the library in the head of sc
 ```bash
 # Define the expected arguments
 declare -A argExpected
-argExpected['test']="argName - This is a short description of the argument and what it does"
-argExpected['R']="secondArgName - This is another argument that can be passed"
+argExpected['test']="argName; This is a short description of the argument and what it does"
+argExpected['R']="secondArgName; This is another argument that can be passed"
 
 # Include and run the Argument Parser library
 source ./my/lib/path/argument-parser.sh
@@ -28,19 +28,19 @@ The argument parser takes an array of arguments to expect, it has the following 
 declare -A argExpected
 
 # Define the -r argument
-argExpected['r']="argumentName - Argument description"
+argExpected['r']="argumentName; Argument description"
 
 # Define the --test argument
-argExpected['test']="argumentName - Argument description"
+argExpected['test']="argumentName; Argument description"
 
 # Define both the -u and --uniform arguments
-argExpected['u|uniform']="argumentName - Argument description"
+argExpected['u|uniform']="argumentName; Argument description"
 
 # Define both the -a and -A arguments
-argExpected['a|A']="argumentName - Argument description"
+argExpected['a|A']="argumentName; Argument description"
 
 # Define the -d, --deamon and -D arguments
-argExpected['d|deamon|D']="argumentName - Argument description"
+argExpected['d|deamon|D']="argumentName; Argument description"
 ```
 
 The `argumentName` part of the definition is the name given to the argument and what should be passed to the `argValue` and `argPassed` functions, see below. The argument name is case sensitive and must not contain spaces or an equals sign.
@@ -54,11 +54,11 @@ You can define a default value that will be used if the argument isn't passed:
  
 ```bash
 # Set the -e arguments default value to 900 
-argExpected['e']="argumentName=900 - Argument description"
+argExpected['e']="argumentName=900; Argument description"
 ```
 
 Now if the script is called and the `-e` argument is omitted `argValue "argumentName"` will return `900`
-The default value can also be set to an empty string (`argExpected['e']="argumentName= - Argument description"`)
+The default value can also be set to an empty string (`argExpected['e']="argumentName=; Argument description"`)
 
 ### Get An Arguments Value
 
@@ -147,28 +147,24 @@ newlines"
 
 ### Long Form
 
+The value of long form arguments can be delimited by either an `=` or a space
+
 ```bash
 --debug
---test mode0
---test "all the code"
---Case-Sensitive true
+--test
+--Case-Sensitive
 --long-parameter
---newline "
-"
+--verbose 3
 --1337
---365 "days"
-```
-
-### Long Form With Value
-
-```bash
 --lang="en"
 --crawl=false
+--test "all the code"
 --match-pattern=".+"
 --newline="
 "
 --UpperCase=sensitive
 --45="25+20"
+--365 "days"
 ```
 
 ### Chained Short Form Arguments
