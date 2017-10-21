@@ -1,3 +1,5 @@
+![Travis Build](https://api.travis-ci.org/moebrowne/bash-argument-parser.svg?branch=master)
+
 # BASH Argument Parser
 
 Takes arguments passed to a bash script in nearly any format and allows easy access to them and their values
