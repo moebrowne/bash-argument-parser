@@ -2,8 +2,6 @@
 
 echo "Running Tests"
 
-declare -a tests=("suites/long/long-defaults.sh" "suites/long/long-defaults-are-overridable.sh")
-
 for test in $(find ./suites -type f)
 do
     output=$("./$test")
