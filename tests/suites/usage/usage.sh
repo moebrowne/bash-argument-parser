@@ -1,6 +1,6 @@
-source tools.sh
+#!/usr/bin/env bash
 
-echo -n '['
+echo -n "Test that usage shows the correct output"
 
 # Define the expected arguments
 declare -A argExpected
@@ -35,6 +35,6 @@ usageExpected="ARGUMENT SUMMARY:
 	$(tput bold)--charlie -c$(tput sgr0)
 		Short and long argument without default"
 
-[ "$usageActual" == "$usageExpected" ] && pass || fail
+[ "$usageActual" != "$usageExpected" ] && exit 1
 
-echo -n '] '
+exit 0
