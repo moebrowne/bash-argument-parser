@@ -1,5 +1,5 @@
 versions:
-    "develop":
+    "2.0.0":
         changed:
             - "Changed the description delimeter to a semicolon"
         added:
