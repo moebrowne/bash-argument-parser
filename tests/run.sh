@@ -2,29 +2,14 @@
 
 echo "Running Tests"
 
-echo "# Core"
-./core/run.sh
+declare -a tests=("suites/long/long-defaults.sh" "suites/long/long-defaults-are-overridable.sh")
 
-echo "# Defaults"
-./default/run.sh
-
-echo "# Overrides"
-
-echo -n " - Short Override Long	"
-./overrides/withDefault.sh --long=unexpected -s expected
-./overrides/withDefault.sh --long unexpected -s expected
-./overrides/withoutDefault.sh --long=unexpected -s expected
-./overrides/withoutDefault.sh --long unexpected -s expected
-echo
-
-echo -n " - Long Override Short	"
-./overrides/withDefault.sh -s unexpected --long=expected
-./overrides/withDefault.sh -s unexpected --long expected
-./overrides/withoutDefault.sh -s unexpected --long=expected
-./overrides/withoutDefault.sh -s unexpected --long expected
-echo
-
-
-echo -n "# Usage	"
-./usage/withDefault.sh
-echo
+for test in $(find ./suites -type f)
+do
+    output=$("./$test")
+    if [[ $? -eq 0 ]]; then
+        echo -e "\e[42m\e[30m PASS \e[0m $output"
+    else
+        echo -e "\e[41m\e[30m\e[1m FAIL \e[0m $output"
+    fi
+done
