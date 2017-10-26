@@ -28,3 +28,9 @@ else
 fi
 
 echo " (Tests: ${testsTotal}, Failures: ${testsFail})"
+
+if [[ "$testsFail" != 0 ]]; then
+    exit 1
+fi
+
+exit 0
