@@ -1,4 +1,7 @@
 versions:
+    "develop":
+        changed:
+            - "Corrected the test runner exit code"
     "2.0.0":
         changed:
             - "Changed the description delimeter to a semicolon"
