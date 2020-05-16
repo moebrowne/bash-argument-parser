@@ -33,7 +33,10 @@ usageExpected="ARGUMENT SUMMARY:
 		Short argument without default
 
 	$(tput bold)--charlie -c$(tput sgr0)
-		Short and long argument without default"
+		Short and long argument without default
+
+	$(tput bold)--help -h$(tput sgr0)
+		Show this help message"
 
 [ "$usageActual" != "$usageExpected" ] && exit 1
 
