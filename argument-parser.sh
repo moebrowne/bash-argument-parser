@@ -172,6 +172,10 @@ argParseDefaults() {
 	done
 }
 
+if [ "$ARG_HELP_DISABLED" != true ]; then
+    argExpected['help|h']="showHelp; Show this help message"
+    argPassed 'showHelp' && { echo "$(argList)"; exit 0; }
+fi
 
 #
 ## Start parsing arguments

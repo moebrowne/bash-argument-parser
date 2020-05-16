@@ -131,6 +131,11 @@ fi
 argPassed 'O' && echo "Found the -O argument"
 ```
 
+## Help Output
+
+By default the library adds `-h` and `--help` arguments which when passed prints a usage message.
+This behaviour can be disabled by setting `ARG_HELP_DISABLED` to `true`
+
 ## Supported Argument Formats
 
 ### Short Form
@@ -216,3 +221,10 @@ There is a rudimentary test suite included with the project that can be used to 
 ### Running Tests
 
 It's as simple as executing `test.sh` in the `tests` directory, if you see any red blips there is a problem, if it's all green then everything should be ok
+
+## Configuration
+
+There are a couple of flags that can be set to adjust how the parser works
+
+- `ARG_DEBUG`: show debug information
+- `ARG_HELP_DISABLED`: disable the default `-h`/`--help` usage argument
