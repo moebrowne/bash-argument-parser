@@ -10,6 +10,7 @@ argExpected['a']="alphaShort=defaultValue; Short argument with default"
 argExpected['b']="bravoShort; Short argument without default"
 argExpected['charlie|c']="charlie; Short and long argument without default"
 argExpected['delta|d']="delta=defaultValue; Short and long argument with default"
+argExpected['echo']="echo=defaultValue;"
 
 # Include the Argument Parser library
 source ../argument-parser.sh
@@ -22,6 +23,9 @@ usageExpected="ARGUMENT SUMMARY:
 
 	$(tput bold)--bravo$(tput sgr0)
 		Long argument without default
+
+	$(tput bold)--echo$(tput sgr0)
+		 (default: 'defaultValue')
 
 	$(tput bold)--alpha$(tput sgr0)
 		Long argument with default (default: 'defaultValue')
