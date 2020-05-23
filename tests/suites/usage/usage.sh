@@ -42,6 +42,6 @@ usageExpected="ARGUMENT SUMMARY:
 	$(tput bold)--help -h$(tput sgr0)
 		Show this help message"
 
-[ "$usageActual" != "$usageExpected" ] && exit 1
+[ "$usageActual" != "$usageExpected" ] && { echo -e "\ndiff: $(diff -C 2 <(echo "$usageActual") <(echo "$usageExpected"))"; exit 1; }
 
 exit 0
